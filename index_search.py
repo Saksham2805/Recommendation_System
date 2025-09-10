@@ -1,7 +1,6 @@
 import faiss
 import pickle
 from sentence_transformers import SentenceTransformer
-import pickle
 import os
 from typing import Dict
 
