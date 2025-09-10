@@ -2,7 +2,15 @@ import faiss
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import numpy as np
-from openai import OpenAI
+import google.generativeai as genai
+from dotenv import load_dotenv
+import os
+
+# Load API key from .env file
+load_dotenv()
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+gemini_model = genai.GenerativeModel("gemini-2.5-flash")
 
 # -----------------------------
 # Step 0: Configuration
@@ -79,20 +87,33 @@ print(retrieved_items[['title', 'description', 'category']])
 # -----------------------------
 # Optional Step 6: Generate LLM rationale
 # -----------------------------
-# use_llm = input("\nDo you want an explanation for recommendations? (y/n): ").strip().lower()
-# if use_llm == "y":
-#     client = OpenAI(api_key="YOUR_OPENAI_API_KEY")  # replace with your key
-#     prompt = f"""
-#     User query: {query_text}
-#     User profile: Aggregated interactions from user {user_id} (if any)
-#     Recommended items:
-#     {retrieved_items[['title', 'description', 'listed_in']].to_dict(orient='records')}
+use_llm = input("\nDo you want an explanation for recommendations? (y/n): ").strip().lower()
+if use_llm == "y":
+    if not user_history.empty:
+        # Summarize user history into a profile
+        sample_watched = user_history[['title', 'description', 'listed_in']].head(10).to_dict(orient="records")
+        profile_prompt = f"""
+        Summarize this user's interests based on their watch history:
 
-#     Write a clear, friendly explanation for why these items are recommended.
-#     """
-#     response = client.chat.completions.create(
-#         model="gpt-4o-mini",
-#         messages=[{"role": "user", "content": prompt}],
-#     )
-#     rationale = response.choices[0].message.content
-#     print("\nRecommendation Rationale:\n", rationale)
+        {sample_watched}
+
+        Write in 2-3 sentences.
+        """
+        profile_response = gemini_model.generate_content(profile_prompt)
+        user_profile_summary = profile_response.text.strip()
+    else:
+        user_profile_summary = "No prior history available for this user."
+
+    # Now generate rationale
+    rationale_prompt = f"""
+    User query: {query_text}
+    User profile summary: {user_profile_summary}
+
+    Recommended items:
+    {retrieved_items[['title', 'description', 'category']].to_dict(orient='records')}
+
+    Explain in a clear and friendly way why these items are recommended.
+    """
+    rationale_response = gemini_model.generate_content(rationale_prompt)
+    rationale = rationale_response.text.strip()
+    print("\nRecommendation Rationale:\n", rationale)
