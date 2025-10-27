@@ -234,7 +234,10 @@ if __name__ == "__main__":
     print("="*80)
     
     # Run the debug scraper
-    result_df = get_amazon_prime_history(EMAIL, PASSWORD, PROFILE, "prime_watch_history.csv")
+    safe_profile = PROFILE.replace(" ", "_").lower()
+    output_dir = "histories"
+    file_path = os.path.join(output_dir, f"prime_history_{safe_profile}.csv")
+    result_df = get_amazon_prime_history(EMAIL, PASSWORD, PROFILE, file_path)
     
     if not result_df.empty:
         print(f"\n🎉 SUCCESS! Found {len(result_df)} unique titles")

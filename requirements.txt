@@ -6,3 +6,10 @@ google-generativeai
 python-dotenv
 scikit-learn
 torch
+Django>=4.2.0
+djangorestframework>=3.14.0
+django-cors-headers>=4.0.0
+celery>=5.3.0
+redis>=4.5.0
+python-decouple>=3.8
+Pillow>=9.5.0
