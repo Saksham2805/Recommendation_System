@@ -1,190 +1,146 @@
-# Hybrid Movie/TV Recommender System
+# Hybrid Streaming Content Recommendation System
 
-An advanced recommendation system that combines multiple search techniques for better movie and TV show recommendations.
+This project is an advanced hybrid recommendation system designed to provide personalized movie and TV show recommendations from multiple streaming platforms like Netflix, Amazon Prime, and Disney Plus. It leverages a combination of natural language processing, semantic search, and keyword-based filtering to deliver accurate and relevant suggestions.
 
-## 🚀 Features Implemented
+## 🚀 Features
 
-### 1. LLM-Powered Feature Extraction
-- Uses Google Gemini AI to extract features from user queries
-- Identifies genres, actors, directors, content types, and more
-- Falls back to basic keyword matching if LLM is unavailable
+- **Hybrid Search Engine**: Combines TF-IDF for keyword matching and FAISS-powered semantic search for contextual understanding.
+- **LLM-Powered Query Understanding**: Uses Google's Gemini model to extract detailed features (genres, actors, mood, etc.) from natural language queries.
+- **Personalized Recommendations**: Creates a user "taste profile" based on their viewing history, with dynamic weighting for frequency and recency.
+- **Multi-Platform Support**: Aggregates content from Netflix, Amazon Prime, and Disney Plus, providing recommendations from a vast library.
+- **Dynamic Ranking**: Implements a sophisticated scoring system that dynamically adjusts weights and applies boosts based on query specificity and feature matching.
+- **Cold Start Handling**: Provides sensible recommendations even for new users with no viewing history.
 
-### 2. Hybrid Search Approach
-- **Keyword Search**: TF-IDF based search for precise matching
-- **Semantic Search**: Sentence transformer embeddings for contextual understanding
-- **User History Integration**: Personalizes recommendations based on viewing history
+## ⚙️ System Architecture
 
-### 3. Weighted Ranking System
-- Combines keyword and semantic search results
-- Applies feature-specific boosts (genre matches, actor matches, etc.)
-- Returns top-k recommendations with confidence scores
+The system is built on the following components:
 
-### 4. Enhanced User Experience
-- Detailed search statistics
-- Feature extraction display
-- Platform-specific recommendations
-- Comparison with original system
+1.  **Data Ingestion & Cleaning**: Raw CSV data from streaming platforms is cleaned and standardized.
+2.  **User History Enrichment**: User viewing history is enriched with detailed metadata (genre, description) using an LLM.
+3.  **Indexing Pipeline**:
+    *   **Semantic Index**: Movie and TV show metadata is converted into vector embeddings using `Sentence-Transformers` and indexed in FAISS for efficient similarity search.
+    *   **Keyword Index**: A TF-IDF matrix is built for fast and efficient keyword-based search.
+4.  **LLM Feature Extractor**: A dedicated module that parses user queries to extract structured search criteria.
+5.  **Hybrid Recommender Core**: The main engine that:
+    *   Receives a user query.
+    *   Extracts features using the LLM.
+    *   Builds a personalized query vector by combining the user's query with their taste profile.
+    *   Performs parallel searches (keyword and semantic).
+    *   Merges, re-ranks, and boosts results to produce the final recommendations.
 
-## 📁 File Structure
+##  Quick Start Guide
 
+Follow these steps to get the recommendation system up and running on your local machine.
+
+### 1. Prerequisites
+
+- Python 3.8+
+- `git` for cloning the repository
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/Saksham2805/Recommendation_System.git
+cd Recommendation_System
 ```
-├── retrieve_elements.py          # New hybrid recommender (main file)
-├── retrieve_elements_v1.py       # Original semantic-only recommender
-├── llm_feature_extractor.py     # LLM-powered feature extraction
-├── keyword_search.py            # TF-IDF keyword search engine
-├── test_comparison.py           # Comparison testing script
-├── create_index.py              # Index creation utilities
-├── index_search.py              # Basic search utilities
-├── prepare_data.py              # Data preparation scripts
-├── requirements.txt             # Python dependencies
-└── README.md                    # This file
+
+### 3. Set Up a Virtual Environment
+
+It's highly recommended to use a virtual environment to manage dependencies.
+
+```bash
+# For Windows
+python -m venv myenv
+myenv\Scripts\activate
+
+# For macOS/Linux
+python3 -m venv myenv
+source myenv/bin/activate
 ```
 
-## 🛠️ Setup Instructions
+### 4. Install Dependencies
 
-### 1. Install Dependencies
+Install all the required Python packages using the `requirements.txt` file.
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Set Up Google AI API Key (Optional)
-For LLM feature extraction, set your Google AI API key:
-```bash
-export GOOGLE_API_KEY="your_api_key_here"
+### 5. Set Up API Keys
+
+The system uses Google's Generative AI (Gemini) for feature extraction and data enrichment. You'll need an API key.
+
+1.  Create a file named `.env` in the root directory of the project.
+2.  Add your API key to this file:
+
+    ```
+    GOOGLE_API_KEY="YOUR_API_KEY_HERE"
+    ```
+
+### 6. Prepare the Data
+
+The raw data is expected to be in the `data/raw/` directory. The data cleaning script will process it.
+
+- Run the data preparation script:
+  ```bash
+  python data_cleaning/prepare_data.py
+  ```
+
+### 7. Build the Search Indexes
+
+You need to create the FAISS and TF-IDF indexes before running the recommender.
+
+- **Build Platform Indexes**: This script processes the cleaned platform data and creates the FAISS indexes.
+  ```bash
+  python index_creation/create_index.py
+  ```
+- **Build User History Index**: This script processes the user's viewing history.
+  ```bash
+  python index_creation/create_user_history_index.py
+  ```
+
+### 8. Run the Recommender!
+
+You are now ready to get recommendations.
+
+- Run the main recommender script:
+  ```bash
+  python recommender.py
+  ```
+- Follow the on-screen prompts:
+  1.  Enter your user ID (e.g., `saksham`).
+  2.  Enter the desired platform (`Netflix`, `Amazon Prime`, `Disney Plus`, or `all`).
+  3.  Enter your search query (e.g., `sci-fi movies with aliens`).
+  4.  Specify the number of recommendations you want.
+
+## 📂 Project Structure
+
 ```
-Or create a `.env` file with:
-```
-GOOGLE_API_KEY=your_api_key_here
-```
-
-### 3. Prepare Data
-Ensure you have:
-- FAISS indexes in `faiss_indexes/` directory
-- User history files in `user_histories/` directory
-- Cleaned data in `data/cleaned/` directory
-
-## 🎯 Usage
-
-### Run the Hybrid Recommender
-```bash
-python retrieve_elements.py
-```
-
-### Compare with Original Version
-```bash
-python test_comparison.py --compare
-```
-
-### Test Individual Versions
-```bash
-python test_comparison.py
-```
-
-## 🔍 How It Works
-
-### 1. Feature Extraction
-The system analyzes user queries to extract:
-- **Genres**: action, comedy, drama, horror, etc.
-- **Actors**: specific cast members mentioned
-- **Directors**: film directors
-- **Content Type**: movies, TV shows, or both
-- **Mood/Tone**: scary, funny, romantic, etc.
-- **Era/Year**: time periods or specific years
-
-### 2. Dual Search Strategy
-- **Keyword Search**: Uses TF-IDF to find exact matches for extracted features
-- **Semantic Search**: Uses sentence embeddings to find contextually similar content
-
-### 3. Intelligent Ranking
-- Combines results from both search methods
-- Applies weights: 40% keyword, 60% semantic (configurable)
-- Adds boosts for feature matches (genre: +20%, actor: +15%, etc.)
-- Filters out already-watched content
-
-### 4. Personalization
-- Analyzes user viewing history
-- Extracts preferences (favorite genres, content types, etc.)
-- Enhances queries with personal context
-
-## 📊 Search Statistics
-
-The hybrid system provides detailed statistics:
-- 🔤 Keyword results found
-- 🧠 Semantic results found
-- ⚖️ Total merged results
-- 🏆 Final recommendations
-
-## 🔄 Comparison with Original System
-
-| Feature | Original (v1) | Hybrid (v2) |
-|---------|---------------|-------------|
-| Search Method | Semantic only | Hybrid (Keyword + Semantic) |
-| Feature Extraction | Basic | LLM-powered |
-| Personalization | Query enhancement | Full history analysis |
-| Ranking | Single score | Weighted multi-factor |
-| Statistics | Basic | Detailed |
-
-## 🎭 Example Queries
-
-Try these queries to see the system in action:
-
-1. **"action movies with Tom Cruise"**
-   - Extracts: genre="action", actor="Tom Cruise", content_type="movies"
-
-2. **"romantic comedies from the 90s"**
-   - Extracts: genres=["romance", "comedy"], era="90s"
-
-3. **"scary horror movies"**
-   - Extracts: genres=["horror"], mood=["scary"]
-
-4. **"documentaries about space"**
-   - Extracts: genre="documentary", keywords=["space"]
-
-## ⚙️ Configuration
-
-### Search Weights
-Modify weights in `retrieve_elements.py`:
-```python
-self.search_weights = {
-    'keyword': 0.4,    # Weight for keyword search
-    'semantic': 0.6    # Weight for semantic search
-}
-```
-
-### Feature Weights
-Adjust feature importance in `keyword_search.py`:
-```python
-self.feature_weights = {
-    'genres': 0.4,      # Highest weight
-    'actors': 0.25,     # High weight
-    'directors': 0.2,   # Medium weight
-    'keywords': 0.1,    # Lower weight
-    'mood': 0.05        # Lowest weight
-}
-```
-
-## 🚀 Future Enhancements
-
-1. **BM25 Integration**: Replace TF-IDF with BM25 for better term frequency handling
-2. **Advanced LLM Features**: More sophisticated prompt engineering
-3. **Collaborative Filtering**: User-user and item-item similarity
-4. **Real-time Learning**: Update user preferences based on interactions
-5. **Multi-modal Search**: Include images, trailers, and reviews
-
-## 📈 Performance Notes
-
-- **Index Building**: TF-IDF index is built once at startup
-- **Search Speed**: Hybrid search is fast due to pre-computed embeddings
-- **Memory Usage**: Optimized for large datasets with sparse matrices
-- **Fallback Support**: Works without LLM API key using basic extraction
-
-## 🤝 Contributing
-
-1. Test your changes with `test_comparison.py`
-2. Ensure backward compatibility with original system
-3. Add documentation for new features
-4. Update this README with any new functionality
-
-## 📄 License
-
-This project is part of the Recommendation System repository. See the main repository for licensing information.
+Recommender/
+│
+├── .env                # API keys and environment variables
+├── recommender.py        # Main application script
+├── llm_feature_extractor.py # Extracts features from queries using LLM
+├── keyword_search.py     # TF-IDF based search engine
+├── requirements.txt      # Project dependencies
+│
+├── data/
+│   ├── raw/            # Raw platform data (CSV)
+│   └── cleaned/        # Cleaned platform data
+│
+├── data_cleaning/
+│   └── prepare_data.py # Script to clean raw data
+│
+├── index_creation/
+│   ├── create_index.py # Creates FAISS indexes for platforms
+│   └── create_user_history_index.py # Creates FAISS index for user history
+│
+├── faiss_indexes/      # Stores the generated FAISS indexes and metadata
+│
+├── histories/
+│   ├── raw/            # Raw user history data
+│   └── detailed/       # Enriched user history data (JSON)
+│
+└── extract_history/
+    ├── get_movie_details.py # Enriches history with genre/description
+    └── ...

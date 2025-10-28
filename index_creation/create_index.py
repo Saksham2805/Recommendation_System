@@ -51,6 +51,7 @@ class StreamingPlatformIndexer:
         listed_in = self.clean_text(row.get('listed_in', ''))
         show_type = self.clean_text(row.get('type', ''))
         duration = self.clean_text(row.get('duration', ''))
+        release_year = self.clean_text(str(row.get('release_year', '')))
         
         # Create a weighted combination - title and description are most important
         combined_parts = []
@@ -72,6 +73,8 @@ class StreamingPlatformIndexer:
             combined_parts.append(f"Type: {show_type}")
         if duration:
             combined_parts.append(f"Duration: {duration}")
+        if release_year:
+            combined_parts.append(f"Released in {release_year}")
             
         return " ".join(combined_parts)
     

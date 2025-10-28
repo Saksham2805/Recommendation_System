@@ -28,7 +28,7 @@ class LLMFeatureExtractor:
 
         # Initialize the model - try different model names
         try:
-            self.model = genai.GenerativeModel('gemini-1.5-flash')
+            self.model = genai.GenerativeModel('gemini-2.5-flash')
         except Exception:
             try:
                 self.model = genai.GenerativeModel('gemini-1.5-pro')

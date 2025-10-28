@@ -66,25 +66,30 @@ class KeywordSearchEngine:
         description = self._preprocess_text(row.get('description', ''))
         listed_in = self._preprocess_text(row.get('listed_in', ''))
         director = self._preprocess_text(row.get('director', ''))
+        release_year = self._preprocess_text(str(row.get('release_year', '')))
 
         # Combine with different weights by repetition
         parts = []
 
-        # Title gets highest weight (3x)
+        # Title gets highest weight (5x)
         if title:
-            parts.extend([title] * 3)
+            parts.extend([title] * 5)
 
-        # Description gets high weight (2x)
+        # Cast and director get high weight (3x)
+        if cast:
+            parts.extend([cast] * 3)
+        if director:
+            parts.extend([director] * 3)
+
+        # Description gets medium weight (2x)
         if description:
             parts.extend([description] * 2)
 
-        # Genres and cast get normal weight (1x)
+        # Genres and release year get normal weight (1x)
         if listed_in:
             parts.append(listed_in)
-        if cast:
-            parts.append(cast)
-        if director:
-            parts.append(director)
+        if release_year:
+            parts.append(f"year {release_year}")
 
         return ' '.join(parts)
 
@@ -170,13 +175,14 @@ class KeywordSearchEngine:
 
         return query_vector
 
-    def search(self, features: Dict, k: int = 10) -> List[Dict]:
+    def search(self, features: Dict, k: int = 10, platform: Optional[str] = None) -> List[Dict]:
         """
         Perform keyword search using TF-IDF.
 
         Args:
             features: Dictionary of extracted features
             k: Number of results to return
+            platform: Optional platform to filter results by
 
         Returns:
             List of search results with scores
@@ -190,12 +196,17 @@ class KeywordSearchEngine:
         # Calculate cosine similarity
         similarities = cosine_similarity(query_vector, self.tfidf_matrix).flatten()
 
-        # Get top-k results
-        top_indices = np.argsort(similarities)[::-1][:k]
+        # Get top-k results (get more initially to allow for filtering)
+        top_indices = np.argsort(similarities)[::-1][:k * 3]
 
         results = []
         for idx in top_indices:
             if similarities[idx] > 0:  # Only include results with some similarity
+                # Platform filtering logic
+                result_platform = self.metadata_df.iloc[idx].get('platform', '')
+                if platform and platform.lower() not in result_platform.lower():
+                    continue
+
                 result = {
                     'index': int(idx),
                     'tfidf_score': float(similarities[idx]),
@@ -204,11 +215,14 @@ class KeywordSearchEngine:
                     'listed_in': self.metadata_df.iloc[idx].get('listed_in', ''),
                     'cast': self.metadata_df.iloc[idx].get('cast', ''),
                     'description': self.metadata_df.iloc[idx].get('description', ''),
-                    'platform': self.metadata_df.iloc[idx].get('platform', ''),
+                    'platform': result_platform,
                     'release_year': self.metadata_df.iloc[idx].get('release_year', ''),
                     'show_id': self.metadata_df.iloc[idx].get('show_id', '')
                 }
                 results.append(result)
+
+                if len(results) >= k:
+                    break
 
         return results
 

@@ -11,7 +11,7 @@ prime_df = pd.read_csv("data/raw/Amazon_Prime_Titles.csv")
 # --------------------------
 # STEP 2: Keep required columns
 # --------------------------
-cols = ['show_id', 'type', 'title', 'cast', 'duration', 'listed_in', 'description']
+cols = ['show_id', 'type', 'title', 'cast', 'duration', 'listed_in', 'description', 'release_year']
 netflix_df = netflix_df[cols].dropna()
 disney_df = disney_df[cols].dropna()
 prime_df = prime_df[cols].dropna()
