@@ -5,7 +5,7 @@ import time
 from typing import List, Dict, Any
 from dotenv import load_dotenv
 import google.generativeai as genai
-from database_utils import MovieDatabase
+from extract_history.database_utils import MovieDatabase
 
 class MovieDetailsFetcher:
     """

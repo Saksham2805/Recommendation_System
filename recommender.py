@@ -65,31 +65,36 @@ class HybridRecommender:
         platform_mappings = {
             'netflix_index.faiss': 'Netflix',
             'amazon_prime_index.faiss': 'Amazon Prime',
-            'disney_index.faiss': 'Disney Plus'
         }
 
         all_metadata = []
 
         for file in os.listdir(index_dir):
-            if file.endswith('_index.faiss'):
-                platform_name = platform_mappings.get(file, file.replace('_index.faiss', ''))
+            if not file.endswith('_index.faiss'):
+                continue
 
-                # Load FAISS index
-                index_path = os.path.join(index_dir, file)
-                self.indexes[platform_name] = faiss.read_index(index_path)
+            # Skip Disney Plus index entirely – we don't support it in the app anymore
+            if file.startswith('disney_index'):
+                continue
 
-                # Load metadata
-                metadata_file = file.replace('_index.faiss', '_metadata.pkl')
-                metadata_path = os.path.join(index_dir, metadata_file)
-                with open(metadata_path, 'rb') as f:
-                    platform_metadata = pickle.load(f)
-                    self.metadata[platform_name] = platform_metadata
+            platform_name = platform_mappings.get(file, file.replace('_index.faiss', ''))
 
-                    # Add platform info and collect for combined metadata
-                    platform_metadata['platform'] = platform_name
-                    all_metadata.append(platform_metadata)
+            # Load FAISS index
+            index_path = os.path.join(index_dir, file)
+            self.indexes[platform_name] = faiss.read_index(index_path)
 
-                print(f"Loaded {platform_name} index and metadata")
+            # Load metadata
+            metadata_file = file.replace('_index.faiss', '_metadata.pkl')
+            metadata_path = os.path.join(index_dir, metadata_file)
+            with open(metadata_path, 'rb') as f:
+                platform_metadata = pickle.load(f)
+                self.metadata[platform_name] = platform_metadata
+
+                # Add platform info and collect for combined metadata
+                platform_metadata['platform'] = platform_name
+                all_metadata.append(platform_metadata)
+
+            print(f"Loaded {platform_name} index and metadata")
 
         # Combine all metadata for keyword search
         if all_metadata:

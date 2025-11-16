@@ -6,3 +6,8 @@ google-generativeai
 python-dotenv
 scikit-learn
 torch
+
+Django>=4.2,<5.0
+djangorestframework
+django-cors-headers
+cryptography

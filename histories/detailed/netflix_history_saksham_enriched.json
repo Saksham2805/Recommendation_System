@@ -102,6 +102,12 @@
         "description": "A gay man and a lesbian woman decide to enter a marriage of convenience to appease their traditional Indian families. While living together as a married couple, they navigate the complexities of their arrangement, their personal lives, and the societal pressures that come with their unconventional secret. This leads to a series of comedic and poignant moments as they strive for acceptance and understanding."
     },
     {
+        "title": "Badla",
+        "count": 1,
+        "genre": "Thriller",
+        "description": "A successful businesswoman finds herself accused of murdering her lover and hires a shrewd defense lawyer to help her navigate the complex legal battle. As they recount the events of the fateful night, a web of lies, secrets, and betrayal begins to unravel. The film delves into their intense conversations, attempting to piece together the truth behind the mysterious death."
+    },
+    {
         "title": "Badrinath Ki Dulhania",
         "count": 1,
         "genre": "Romantic Comedy",
@@ -118,6 +124,12 @@
         "count": 1,
         "genre": "Action-Adventure",
         "description": "A charming con man and his crew embark on a high-stakes adventure in the Mexican Caribbean to find a legendary Mayan treasure. They must outsmart ruthless criminals and overcome various traps and challenges to claim the ancient riches before their rivals."
+    },
+    {
+        "title": "Baramulla",
+        "count": 1,
+        "genre": "Drama",
+        "description": "Baramulla is a 2022 Kashmiri drama film that portrays the lives of ordinary people residing in the Baramulla district of Kashmir. The film explores their daily struggles and resilience amidst the region's complex sociopolitical environment. It offers an intimate look into the human experience and the search for hope in challenging times."
     },
     {
         "title": "Batman v Superman: Dawn of Justice",
@@ -148,6 +160,12 @@
         "count": 1,
         "genre": "Horror-Comedy",
         "description": "Bhool Bhulaiyaa 3 is the highly anticipated third installment in the popular horror-comedy franchise, with Kartik Aaryan returning as Rooh Baba. The film is expected to delve deeper into supernatural mysteries and comedic escapades, continuing the series' unique blend of scares and laughter. It will likely feature a new haunted scenario where Rooh Baba is called upon to confront and resolve paranormal disturbances."
+    },
+    {
+        "title": "Billu",
+        "count": 1,
+        "genre": "Drama",
+        "description": "A humble barber named Billu in a small village finds his life dramatically altered when a renowned Bollywood superstar, who Billu claims to be an old friend, arrives in town for a film shoot. As the villagers become eager to meet the celebrity, Billu struggles with the pressures and skepticism surrounding his alleged friendship. The film explores themes of social status, friendship, and the challenges of fame."
     },
     {
         "title": "Black Adam",
@@ -210,6 +228,12 @@
         "description": "A man wakes up to a disturbing reality where his every action is being dictated by an unknown, external force. He soon realizes his life is under digital manipulation and struggles to regain control of his own existence."
     },
     {
+        "title": "Chak De! India",
+        "count": 1,
+        "genre": "Sports Drama",
+        "description": "The film follows Kabir Khan, a former Indian national hockey player, who faces ostracism after being wrongly accused of betrayal. Years later, he attempts to redeem his honor by coaching the disparate and underestimated Indian women's national hockey team. He strives to unite the team, overcome their individual differences and prejudices, and lead them to an unexpected victory on the international stage."
+    },
+    {
         "title": "Chef & My Fridge: 2025",
         "count": 1,
         "genre": "Food",
@@ -246,6 +270,12 @@
         "description": "This series meticulously chronicles the Delhi Police's investigation into the horrific 2012 gang rape case. Led by Deputy Commissioner of Police Vartika Chaturvedi, the team races against time to track down the perpetrators responsible for the brutal crime that deeply shocked India and the world."
     },
     {
+        "title": "Delhi Crime: Season 3",
+        "count": 6,
+        "genre": "Crime Drama",
+        "description": "Season 3 delves into a new, complex crime investigation unfolding in the bustling capital city of Delhi. The series continues to follow the dedicated police force as they meticulously piece together clues and navigate the challenging realities of law enforcement to bring justice to victims."
+    },
+    {
         "title": "Descendants of the Sun: Limited Series",
         "count": 1,
         "genre": "Romance Drama",
@@ -276,6 +306,12 @@
         "description": "The lives of two siblings, one a mechanic with a mysterious past and the other a free-spirited artist, become intertwined with a vibrant young woman and her stern brother. As a new romance blossoms between the younger pair, it reignites an old, passionate, yet painful love story between their older siblings, forcing them to confront a long-buried past and their unresolved feelings amidst familial rivalries."
     },
     {
+        "title": "Dilwale Dulhania Le Jayenge",
+        "count": 1,
+        "genre": "Romance",
+        "description": "Raj and Simran are two young non-resident Indians living in London who meet and fall in love during a trip across Europe. However, Simran's conservative father has already promised her hand in marriage to his best friend's son in India. Raj follows Simran to her ancestral home, determined to win over her family and marry her, but only with their full blessing."
+    },
+    {
         "title": "Do Patti",
         "count": 1,
         "genre": "Thriller",
@@ -304,6 +340,12 @@
         "count": 1,
         "genre": "Horror",
         "description": "A group of survivors from previous deadly escape rooms finds themselves unexpectedly thrust into another, even more perilous series of games. They soon discover that this new competition brings together other winners, forcing them to confront increasingly elaborate and lethal puzzles orchestrated by a mysterious entity. To escape, they must uncover the orchestrator behind the scenes and find a way out of the deadly tournament."
+    },
+    {
+        "title": "Fan",
+        "count": 1,
+        "genre": "Action Thriller",
+        "description": "A Delhi boy, who is an uncanny look-alike and an obsessed fan of a Bollywood superstar, travels to Mumbai to meet his idol. When his dream encounter turns into a devastating disappointment, his admiration transforms into a dangerous vendetta. He then dedicates himself to systematically ruining the superstar's life, leading to an intense cat-and-mouse game across the globe."
     },
     {
         "title": "Final Destination 2",
@@ -361,7 +403,7 @@
     },
     {
         "title": "Friends: Season 4",
-        "count": 20,
+        "count": 21,
         "genre": "Comedy",
         "description": "The fourth season continues to follow the humorous misadventures and evolving relationships of six friends living in New York City. As they navigate their careers, romantic lives, and personal aspirations, the group faces a variety of comedic challenges and life-changing decisions that test their bonds."
     },
@@ -432,6 +474,12 @@
         "description": "This web series dramatizes the harrowing true events of the 1999 Indian Airlines Flight 814 hijacking. It follows the terrifying ordeal of passengers and crew aboard a plane taken hostage by terrorists demanding the release of their incarcerated accomplices. The narrative explores the tense negotiations and the high-stakes decisions made by government officials to resolve the crisis."
     },
     {
+        "title": "Idli Kadai",
+        "count": 1,
+        "genre": "Drama",
+        "description": "This short film portrays a slice of life, often focusing on the interactions and experiences within or around a traditional South Indian Idli shop. It delves into the everyday struggles and simple joys of ordinary people, potentially highlighting human relationships or societal nuances."
+    },
+    {
         "title": "Indian 2",
         "count": 1,
         "genre": "Vigilante Action",
@@ -460,6 +508,12 @@
         "count": 1,
         "genre": "Action",
         "description": "This Haryanvi film explores the challenges faced by a young man from the Jaat community as he navigates love, tradition, and family honor. Set in the backdrop of Haryana, it delves into societal expectations and conflicts arising from personal desires versus community norms."
+    },
+    {
+        "title": "Jab Tak Hai Jaan",
+        "count": 1,
+        "genre": "Romantic Drama",
+        "description": "An Indian Army bomb disposal expert, Samar Anand, faces a profound romantic dilemma. After encountering two different women at separate points in his life, he must navigate the complexities of love, sacrifice, and destiny. The story explores his journey through love, loss, and the promises he makes."
     },
     {
         "title": "Jagame Thandhiram",
@@ -502,6 +556,12 @@
         "count": 1,
         "genre": "Drama",
         "description": "The film centers on Arthur Fleck, a mentally troubled man struggling as a stand-up comedian and party clown in Gotham City. Faced with societal neglect and the cruel indifference of the world around him, he embarks on a slow, unsettling descent into madness. His journey explores the origins of a legendary villain, detailing how a man pushed to the brink finds a new identity."
+    },
+    {
+        "title": "Jolly LLB 3",
+        "count": 1,
+        "genre": "Legal Comedy",
+        "description": "The third installment in the 'Jolly LLB' franchise sees Jagdishwar Mishra return to the courtroom to tackle another high-stakes legal battle. He faces formidable challenges and unexpected twists as he navigates the complexities of the Indian judicial system. The film promises a blend of sharp wit, social commentary, and dramatic courtroom proceedings."
     },
     {
         "title": "Jurassic World",
@@ -670,6 +730,12 @@
         "count": 1,
         "genre": "Action",
         "description": "Clark Kent, a young man who feels alienated by his extraordinary abilities, must discover where he came from and what he was sent here to do. As he grapples with his identity, he is forced to become a hero when the world is threatened by an invasion from his home planet."
+    },
+    {
+        "title": "Mandala Murders: Mandala Murders",
+        "count": 8,
+        "genre": "Crime Thriller",
+        "description": "A seasoned detective is called to investigate a series of baffling murders where each victim is found with an intricate mandala drawn on their body. As the body count rises, the detective delves into a complex world of ancient symbols, dark rituals, and hidden motives, racing against time to unmask a serial killer."
     },
     {
         "title": "Men in Black: International",

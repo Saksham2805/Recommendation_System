@@ -1,22 +1,51 @@
-# Virtual environment
+# Python virtual environments
 myenv/
 venv/
 .env
 
-# Python cache
+# Python cache / artifacts
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Django specific
+*.log
+staticfiles/
+media/
+
+# SQLite / local DBs
+*.sqlite3
+*.db
+movies_details_db/movies.db
+
+# Project data & generated indexes
+histories/
+faiss_indexes/
+*.csv
+*.pkl
+*.faiss
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
-# VSCode settings
+# VS Code
 .vscode/
 
-# Mac / Linux system files
+# OS / editor junk
 .DS_Store
-*.csv
-*.pkl
-*.faiss
+Thumbs.db
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env / secrets (already covered by .env above, but keep explicit)
+.env
