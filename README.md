@@ -7,7 +7,64 @@ This repository contains **StreamSense**, a hybrid recommendation system plus a 
 - Exposes a **Django REST API** that runs a hybrid (keyword + semantic) recommender implemented in `recommender.py`.
 - Provides a **React (Vite + TypeScript) frontend** for interactive recommendations and connecting your streaming accounts.
 
-> Disney Plus was part of the original project but is no longer supported in the current Django/React app. The core recommender still supports multiple platforms conceptually, but the live flows focus on Netflix + Prime.
+---
+
+## Quickstart (Local Demo)
+
+This is the fastest way to run the **Django + React** app locally.
+
+> Tested with **Python 3.10+** and **Node 18+**.
+
+1. **Clone the repo & create a virtualenv**
+
+   ```bash
+   git clone https://github.com/Saksham2805/Recommendation_System.git
+   cd Recommendation_System
+
+   python -m venv .venv
+   .venv\Scripts\activate  # Windows
+   # or
+   source .venv/bin/activate  # macOS/Linux
+   ```
+
+2. **Install Python dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Create a `.env` file** in the project root:
+
+   ```env
+   GOOGLE_API_KEY="YOUR_GEMINI_API_KEY"        # required for LLM-based enrichment
+   STREAMING_CREDENTIAL_KEY="YOUR_FERNET_KEY"  # used to encrypt stored streaming credentials
+   ```
+
+   See [Generating a Fernet key](#generating-a-fernet-key) if you don’t have a key yet.
+
+4. **Run the Django backend**
+
+   ```bash
+   python manage.py migrate
+   python manage.py runserver
+   ```
+
+   The API will be available at http://127.0.0.1:8000/.
+
+5. **Run the React frontend** (in a second terminal):
+
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+   Open the Vite dev URL from the terminal (usually http://localhost:5173/).
+
+6. **Use the app**
+
+   - **Discover** tab → run hybrid recommendations.
+   - **Connections** tab → (optional) connect Netflix / Prime for local history sync.
 
 ---
 
@@ -145,10 +202,22 @@ GOOGLE_API_KEY="YOUR_GEMINI_API_KEY"
 STREAMING_CREDENTIAL_KEY="YOUR_FERNET_KEY"
 ```
 
-To generate a Fernet key locally:
+`GOOGLE_API_KEY` is used by the Gemini-based feature extractor and enrichment scripts.
+`STREAMING_CREDENTIAL_KEY` is used by `streaming/crypto_utils.py` to encrypt/decrypt your
+stored streaming credentials using Fernet (from `cryptography`).
+
+### Generating a Fernet key
+
+To generate a fresh Fernet key locally, run:
 
 ```bash
 python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+
+Copy the printed value into your `.env` file:
+
+```env
+STREAMING_CREDENTIAL_KEY="PASTE_GENERATED_KEY_HERE"
 ```
 
 The `.env` file is loaded by:
