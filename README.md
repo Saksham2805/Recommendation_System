@@ -42,6 +42,19 @@ This is the fastest way to run the **Django + React** app locally.
 
    See [Generating a Fernet key](#generating-a-fernet-key) if you don’t have a key yet.
 
+3b. **(Optional) Rebuild FAISS indexes**
+
+   Prebuilt FAISS indexes and metadata for **Netflix** and **Amazon Prime** are included under
+   `faiss_indexes/`, so you can run the demo without rebuilding indexes.
+
+   If you want to regenerate them from the cleaned CSVs, run:
+
+   ```bash
+   python data_cleaning/prepare_data.py
+   python index_creation/create_index.py
+   python index_creation/create_user_history_index.py
+   ```
+
 4. **Run the Django backend**
 
    ```bash
@@ -124,6 +137,10 @@ This layer handles cleaning source data, scraping streaming history, enriching i
 - `index_creation/create_user_history_index.py`
   - Builds a FAISS index over enriched user history JSON files.
   - Writes per‑user history indexes under `faiss_indexes/saksham/` in the current local setup.
+
+> Note: For convenience, this repo includes precomputed FAISS indexes and metadata for the
+> Netflix and Amazon Prime catalogs under `faiss_indexes/`. This lets you run the demo
+> web app immediately after installing dependencies and setting up your `.env`.
 
 #### Scraping & enrichment (`extract_history/`)
 

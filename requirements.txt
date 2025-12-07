@@ -6,6 +6,7 @@ google-generativeai
 python-dotenv
 scikit-learn
 torch
+selenium
 
 Django>=4.2,<5.0
 djangorestframework

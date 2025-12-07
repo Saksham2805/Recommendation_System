@@ -27,10 +27,17 @@ movies_details_db/movies.db
 
 # Project data & generated indexes
 histories/
-faiss_indexes/
+faiss_indexes/*
 *.csv
 *.pkl
 *.faiss
+
+# Allow prebuilt catalog indexes for Netflix & Amazon Prime
+!faiss_indexes/
+!faiss_indexes/netflix_index.faiss
+!faiss_indexes/netflix_metadata.pkl
+!faiss_indexes/amazon_prime_index.faiss
+!faiss_indexes/amazon_prime_metadata.pkl
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
